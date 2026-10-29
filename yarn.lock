@@ -34,7 +34,7 @@
   resolved "https://registry.yarnpkg.com/@babel/compat-data/-/compat-data-7.29.7.tgz#6f0237f0f36d2e51c0570a636faed9d2d0efe629"
   integrity sha512-locTkQyKvwIEgBzVrn8693ebc97F2U8ZHjbXwDXJ5Fn2TCpNwTlKcaKLkdHop5c/icOFE7qt7Q9JC5hnKNa6Gg==
 
-"@babel/core@^7.12.0", "@babel/core@^7.14.5", "@babel/core@^7.16.10", "@babel/core@^7.16.7", "@babel/core@^7.18.6", "@babel/core@^7.19.6", "@babel/core@^7.3.4":
+"@babel/core@^7.12.0", "@babel/core@^7.14.5", "@babel/core@^7.16.10", "@babel/core@^7.16.7", "@babel/core@^7.18.6", "@babel/core@^7.29.0", "@babel/core@^7.3.4":
   version "7.29.7"
   resolved "https://registry.yarnpkg.com/@babel/core/-/core-7.29.7.tgz#80c10b17248082968b57a857b91640971f2070f7"
   integrity sha512-RgHBCvtjbOK2gXSNBNIkNoEc9qoVEtau3hj8gEqKQuL3HZAibKarWFEI3Lfm6EYKkLalOh8eSrj9b+ch9H/VBA==
@@ -1137,12 +1137,12 @@
   resolved "https://registry.yarnpkg.com/@embroider/hbs-loader/-/hbs-loader-3.0.5.tgz#b4f72ddc0da363c154a8085d5c399d689f32c357"
   integrity sha512-/K9LpLSlTf8X0Htn+m61IRny6kHyIScBX4Lqrpd8GSA07snQDyVJygQngQFMReITlIUK0YOIK7CxDIml2NN3iw==
 
-"@embroider/macros@^1.0.0", "@embroider/macros@^1.10.0", "@embroider/macros@^1.18.1":
-  version "1.21.4"
-  resolved "https://registry.yarnpkg.com/@embroider/macros/-/macros-1.21.4.tgz#1eafc6084b483b1947e4db34260fe7cd56de3553"
-  integrity sha512-5fPpOtQyQCK9RsMdtXZliUPKWAkdzJ8jCWIQotq9ZaeLMsvT4OkMBaSiZz5uED8GwDRmOXsJt2Ub3Zq6WtKqcw==
+"@embroider/macros@>=1.19.7 <1.21.0", "@embroider/macros@^1.0.0", "@embroider/macros@^1.10.0", "@embroider/macros@^1.18.1", "@embroider/macros@~1.20.7":
+  version "1.20.7"
+  resolved "https://registry.yarnpkg.com/@embroider/macros/-/macros-1.20.7.tgz#70a56727b45903c5c1243026f411bd30844a0bd0"
+  integrity sha512-B9KJuqeODyad6rWYFK4yKKKSR9H2OsClMzHREmEx94FrwA9/PS37ebTHWeuzLKspas7UclpYE8sBmxSbi/pWig==
   dependencies:
-    "@embroider/shared-internals" "3.2.1"
+    "@embroider/shared-internals" "3.2.0"
     assert-never "^1.2.1"
     babel-import-util "^3.0.1"
     ember-cli-babel "^7.26.6 || ^8.3.1"
@@ -1177,10 +1177,10 @@
     semver "^7.3.5"
     typescript-memoize "^1.0.1"
 
-"@embroider/shared-internals@3.2.1":
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/@embroider/shared-internals/-/shared-internals-3.2.1.tgz#a6d39e22a73bd136dc9936a08f122a9f5e0c483b"
-  integrity sha512-ZHTVF1Md6HiPPdpi5ESU5JlG2m4HRXIVebCka6BoMIfzyPlSjgYmpflv6Cmiq9UUyhe+/3LTMdx53vAV7O9g2Q==
+"@embroider/shared-internals@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/@embroider/shared-internals/-/shared-internals-3.2.0.tgz#2379a2f320a72289bde72005dce0835359396f6a"
+  integrity sha512-TzLZnwfhhrNkdTVGGyysovvciFCwyxEgMbzF9AZMzNbFlXirhocQSpGjy9V4AQArklu4wDFRYqqe5GMKULGIkw==
   dependencies:
     babel-import-util "^3.0.1"
     debug "^4.3.2"
@@ -4145,7 +4145,7 @@ ember-cli-babel@^7.13.0, ember-cli-babel@^7.22.1, ember-cli-babel@^7.23.0, ember
     rimraf "^3.0.1"
     semver "^5.5.0"
 
-"ember-cli-babel@^7.26.6 || ^8.3.1":
+"ember-cli-babel@^7.26.6 || ^8.3.1", ember-cli-babel@^8.3.2:
   version "8.3.2"
   resolved "https://registry.yarnpkg.com/ember-cli-babel/-/ember-cli-babel-8.3.2.tgz#e34944c104a280a3dcc7f1e3c136bdfb483901f7"
   integrity sha512-Thvqx+jwGYhimYbkkL0gwhwMlhghTIR3uQ9R0yNaTjBIttZIfSWJ/2W40kaJlwhnsElXq7zbFjZcff22p6nzCg==
