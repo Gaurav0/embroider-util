@@ -13,7 +13,9 @@
 > - **`@embroider/macros` `>=1.19.7 <1.21.0`.** That keeps the lazy `importSync` fix from
 >   1.18.1, allows ember-cli-babel 8 (1.19.7+), and stays below the v2-addon
 >   rewrite in 1.21.
-> - Node.js 18 or above.
+> - Node.js 20 or above. Node 18 is end-of-life, and the dependency tree no longer
+>   installs on it with yarn: `pkg-entry-points@1.1.2` (from `@embroider/macros`)
+>   and `mktemp@2` (from the broccoli plugin chain) both require Node 20+.
 >
 > The runtime code (`addon/`, `app/`) is identical to upstream 1.13.0–1.13.5.
 > The package keeps the name `@embroider/util`, so an app can switch to it with one
@@ -34,7 +36,7 @@ Utilities to help apps and addons with Embroider support.
 
 - Ember.js v3.13 or above (this fork is tested on 4.8, 4.12, 5.4, 5.8 and release)
 - Ember CLI v2.13 or above
-- Node.js v18 or above
+- Node.js v20 or above
 
 ## Installation
 
