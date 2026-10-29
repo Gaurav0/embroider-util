@@ -1,12 +1,40 @@
 # @embroider/util
 
+> **This is a fork.** It is `@embroider/util` 1.13.5 from
+> [embroider-build/embroider](https://github.com/embroider-build/embroider)
+> (tag `v1.13.5-@embroider/util`, `packages/util`), with only
+> `package.json` changed:
+>
+> - **ember-cli-babel 8** instead of 7. 1.13.0 already used it; 1.13.1 reverted
+>   that only to keep Node 12 working for ember-auto-import's tests
+>   ([#1891](https://github.com/embroider-build/embroider/pull/1891)). With
+>   ember-cli-babel 7, installing this package pulls in `@babel/runtime@7.12.18`
+>   and `tmp@0.0.x`, which have known vulnerabilities.
+> - **`@embroider/macros` `>=1.19.7 <1.21.0`.** That keeps the lazy `importSync` fix from
+>   1.18.1, allows ember-cli-babel 8 (1.19.7+), and stays below the v2-addon
+>   rewrite in 1.21.
+> - Node.js 18 or above.
+>
+> The runtime code (`addon/`, `app/`) is identical to upstream 1.13.0–1.13.5.
+> The package keeps the name `@embroider/util`, so an app can switch to it with one
+> resolution. Upstream no longer publishes this package; on its `main` branch,
+> `packages/util` has been reduced to an empty private stub.
+>
+> This repository is an interim home, used while testing ember-bootstrap 5.
+>
+> Install it as a git dependency:
+>
+> ```json
+> "@embroider/util": "Gaurav0/embroider-util#v1.13.5-scf.1"
+> ```
+
 Utilities to help apps and addons with Embroider support.
 
 ## Compatibility
 
-- Ember.js v3.13 or above
+- Ember.js v3.13 or above (this fork is tested on 4.8, 4.12, 5.4, 5.8 and release)
 - Ember CLI v2.13 or above
-- Node.js v10 or above
+- Node.js v18 or above
 
 ## Installation
 
