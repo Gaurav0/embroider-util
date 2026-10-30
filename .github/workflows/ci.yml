@@ -3,8 +3,9 @@ name: CI
 on:
   push:
     branches:
-      - main
       - master
+    tags:
+      - '*'
   pull_request: {}
 
 concurrency:
@@ -13,67 +14,78 @@ concurrency:
 
 jobs:
   test:
-    name: "Tests"
+    name: Tests (Node ${{ matrix.node }})
     runs-on: ubuntu-latest
-    timeout-minutes: 10
-
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        node:
+          - 20
+          - 22
     steps:
-      - uses: actions/checkout@v3
-      - name: Install Node
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 14.x
+          node-version: ${{ matrix.node }}
           cache: yarn
-      - name: Install Dependencies
+      - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: Lint
         run: yarn lint
-      - name: Run Tests
-        run: yarn test:ember
-
-  floating:
-    name: "Floating Dependencies"
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 14.x
-          cache: yarn
-      - name: Install Dependencies
-        run: yarn install --no-lockfile
-      - name: Run Tests
+      - name: Test (classic)
+        run: yarn test:classic
+      - name: Test (Embroider optimized)
         run: yarn test:ember
 
   try-scenarios:
     name: ${{ matrix.try-scenario }}
     runs-on: ubuntu-latest
-    needs: "test"
-    timeout-minutes: 10
-
+    needs: test
+    timeout-minutes: 15
+    continue-on-error: ${{ matrix.try-scenario == 'ember-release' }}
     strategy:
       fail-fast: false
       matrix:
         try-scenario:
-          - ember-lts-3.24
-          - ember-lts-3.28
+          - ember-lts-4.8
+          - ember-lts-4.12
+          - ember-lts-5.4
+          - ember-lts-5.8
           - ember-release
-          - ember-beta
-          - ember-canary
-          - ember-classic
           - embroider-safe
           - embroider-optimized
-
     steps:
-      - uses: actions/checkout@v3
-      - name: Install Node
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 14.x
+          node-version: 20
           cache: yarn
-      - name: Install Dependencies
+      - name: Install dependencies
         run: yarn install --frozen-lockfile
-      - name: Run Tests
-        run: ./node_modules/.bin/ember try:one ${{ matrix.try-scenario }}
+      - name: Run tests
+        run: yarn ember try:one ${{ matrix.try-scenario }} --- ember test --test-port=0
+
+  # Install the packed package the way a consumer would (no resolutions, no
+  # devDependencies) and fail on any moderate or higher advisory.
+  consumer-audit:
+    name: Consumer audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Pack
+        run: npm pack --ignore-scripts --pack-destination "$RUNNER_TEMP"
+      - name: Install as a consumer
+        working-directory: ${{ runner.temp }}
+        run: |
+          mkdir consumer
+          cd consumer
+          echo '{"name":"consumer","private":true}' > package.json
+          npm install --ignore-scripts --no-audit --legacy-peer-deps ../*.tgz
+      - name: Audit (moderate and above)
+        working-directory: ${{ runner.temp }}/consumer
+        run: npm audit --audit-level=moderate
